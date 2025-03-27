@@ -1,0 +1,13 @@
+﻿@model EditParticipantsViewModel
+
+<input type="hidden" name="EventId" value="@Model.EventId" />
+@foreach (var participant in Model.Participants)
+{
+    <label class="m-1">
+        <input type="checkbox" name="SelectedParticipantIds" value="@participant.Id"
+        @(Model.SelectedParticipantIds.Contains(participant.Id) ? "checked" : "") />
+        &ensp;&nbsp; @participant.Name
+    </label>
+    <br />
+}
+

@@ -1,0 +1,36 @@
+﻿@model EventDto
+@{
+    Layout = null;
+}
+
+<input type="hidden" asp-for="Id" />
+<div class="row">
+    <div class="col-12">
+        <div class="form-group">
+            <label class="form-label">Başlık</label>
+            <input asp-for="Title" type="text" class="form-control">
+            <span class="small text-danger" asp-validation-for="Title"></span>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group">
+            <label class="form-label">Tarih</label>
+            <input asp-for="Date" type="date" class="form-control">
+            <span class="small text-danger" asp-validation-for="Date"></span>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group">
+            <label class="form-label">Yer</label>
+            <input asp-for="Location" type="text" class="form-control">
+            <span class="small text-danger" asp-validation-for="Location"></span>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group">
+            <label class="form-label">Ayrıntılar</label>
+            <textarea asp-for="Detail" class="form-control" rows="3"></textarea>
+            <span class="small text-danger" asp-validation-for="Detail"></span>
+        </div>
+    </div>
+</div>

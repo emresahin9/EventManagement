@@ -1,0 +1,94 @@
+﻿@model EventDto
+@{
+    ViewData["Title"] = "Etkinlik Detay";
+}
+
+<section class="container py-4">
+    <h4 class="text-center text-secondary fw-bold">Etkinlik Detay</h4>
+    <hr class="mb-4" />
+    <div class="container">
+        <div class="card shadow-lg border-0 rounded-3">
+            <div class="card-header bg-light d-flex justify-content-between align-items-center py-3">
+                <div class="d-flex align-items-center">
+                    <i class="fa fa-calendar-check-o fa-lg text-primary me-2 mb-1"></i>
+                    <span class="fw-semibold">@Model.Date.ToString("D")</span>
+                    <span class="mx-3">|</span>
+                    <i class="fa fa-map-marker fa-lg text-danger me-2 mb-1"></i>
+                    <span class="fw-semibold">@Model.Location</span>
+                </div>
+                <div>
+                    <button type="button" onclick="GetEventUpdateModalBody(@Model.Id)" class="btn btn-outline-secondary me-2">
+                        <i class="fa fa-pencil me-1"></i> Güncelle
+                    </button>
+                    <button type="button" onclick="GetEventParticipiantsModalBody(@Model.Id)" class="btn btn-outline-primary">
+                        <i class="fa fa-users me-1"></i> Katılımcılar
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-4">
+                <p class="card-text lead">@Model.Detail</p>
+                <hr>
+                <div class="d-flex align-items-center mb-3">
+                    <i class="fa fa-users fa-lg text-success me-2 mb-1"></i>
+                    <h5 class="mb-0 fw-bold">Katılımcılar</h5>
+                </div>
+                @if (Model.EventParticipants != null && Model.EventParticipants.Count() > 0)
+                {
+                    <ul>
+                        @foreach (var participant in Model.EventParticipants)
+                        {
+                            <li>@participant.Participant.FirstName @participant.Participant.LastName</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <div class="alert alert-light text-center m-3 rounded-0" role="alert">
+                        Öğe Yok
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="modal fade" id="EventUpdateModal" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Etkinlik Düzenle</h4>
+                </div>
+                <form class="modal-body" id="EventUpdateModalBody">
+                </form>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" onclick="$('#EventUpdateModal').modal('hide')" class="btn btn-danger btn-flat" data-dismiss="modal">Kapat</button>
+                    <button type="button" onclick="EventUpdatePost()" class="btn btn-secondary btn-flat">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="EventParticipiantsModal" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Etkinlik Katılımcıları</h4>
+                </div>
+                <form class="modal-body" id="EventParticipiantsModalBody">
+                </form>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" onclick="$('#EventParticipiantsModal').modal('hide')" class="btn btn-danger btn-flat" data-dismiss="modal">Kapat</button>
+                    <button type="button" onclick="EventParticipiantsPost()" class="btn btn-secondary btn-flat">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/event-detail.js"></script>
+}

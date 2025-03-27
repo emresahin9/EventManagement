@@ -1,0 +1,51 @@
+﻿@model EventAddDto
+@{
+    ViewData["Title"] = "Etkinlik Ekle";
+}
+
+<section class="container">
+    <h4 class="m-4">Etkinlik Ekle</h4>
+    <hr />
+    <div class="d-flex justify-content-center">
+        <form method="POST" class="mt-2 col-12 col-md-9 col-lg-6">
+            <div class="mb-3">
+                <label class="form-label">Başlık</label>
+                <input asp-for="Title" type="text" class="form-control">
+                <span class="small text-danger" asp-validation-for="Title"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Tarih</label>
+                <input asp-for="Date" type="date" value="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" class="form-control">
+                <span class="small text-danger" asp-validation-for="Date"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Yer</label>
+                <input asp-for="Location" type="text" class="form-control">
+                <span class="small text-danger" asp-validation-for="Location"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Ayrıntılar</label>
+                <textarea asp-for="Detail" class="form-control" rows="3"></textarea>
+                <span class="small text-danger" asp-validation-for="Detail"></span>
+            </div>
+            <label class="form-label">Katılımcılar</label>
+            <div class="ms-2">
+                @foreach (var participant in TempData["Participants"] as List<ParticipantOnlyNameDto>)
+                {
+                    <label class="m-1">
+                        <input type="checkbox" name="SelectedParticipantIds" value="@participant.Id"
+                        @if (Model != null)
+                        {
+                            @(Model.SelectedParticipantIds.Contains(participant.Id) ? "checked" : "")
+                        } />
+                        &ensp;&nbsp; @participant.Name
+                    </label>
+                    <br />
+                }
+            </div>
+            <div class="mt-5 d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Ekle</button>
+            </div>
+        </form>
+    </div>
+</section>

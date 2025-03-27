@@ -1,0 +1,42 @@
+﻿@model ParticipantDto
+@{
+    ViewData["Title"] = "Katılımcı Güncelle";
+}
+
+<section class="container">
+    <h4 class="m-4">Katılımcı Güncelle</h4>
+    <hr />
+    <div class="d-flex justify-content-center">
+        <form method="POST" class="mt-2 col-12 col-md-9 col-lg-6">
+            <input type="hidden" asp-for="Id" />
+            <div class="mb-3">
+                <label class="form-label">Ad</label>
+                <input asp-for="FirstName" type="text" class="form-control">
+                <span class="small text-danger" asp-validation-for="FirstName"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Soyad</label>
+                <input asp-for="LastName" type="text" class="form-control">
+                <span class="small text-danger" asp-validation-for="LastName"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Eposta Adresi</label>
+                <input asp-for="Email" type="email" class="form-control">
+                <span class="small text-danger" asp-validation-for="Email"></span>
+            </div>
+            <div>
+                <label class="form-label">Etkinlik Katılım Durumu</label>
+                <select asp-for="EventParticipationStatusId" class="form-select" aria-label="Default select example">
+                    @foreach (var item in TempData["EventParticipationStatuses"] as List<EventParticipationStatusDto>)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+                <span class="small text-danger" asp-validation-for="EventParticipationStatusId"></span>
+            </div>
+            <div class="mt-5 d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Güncelle</button>
+            </div>
+        </form>
+    </div>
+</section>
